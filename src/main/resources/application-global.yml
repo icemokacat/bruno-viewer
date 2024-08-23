@@ -1,0 +1,19 @@
+server:
+  servlet:
+    context-path: /
+  tomcat:
+    use-relative-redirects: true
+
+spring:
+  application:
+    name: brunoviewer
+  # thymeleaf 설정
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    view-names: thymeleaf/*
+
+# logging
+logging:
+  level:
+    moka.brunoviewer: info
