@@ -1,0 +1,12 @@
+server:
+  port: 7001
+
+file:
+  upload:
+    path: C:\upload\
+
+bruno:
+  root-path: C:\work\bruno-project\
+
+mdreader:
+  poolsize: 10

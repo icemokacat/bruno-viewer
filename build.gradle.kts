@@ -35,6 +35,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
     /**
+     * markdown view
+     * */
+    implementation("org.commonmark:commonmark:0.22.0")
+
+    /**
      * annotationProcessor
      * */
     // https://www.baeldung.com/intellij-resolve-spring-boot-configuration-properties

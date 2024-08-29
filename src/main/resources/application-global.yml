@@ -2,6 +2,7 @@ server:
   servlet:
     context-path: /
   tomcat:
+    # https 에서 http로 redirect 되게 하지 않게 설정
     use-relative-redirects: true
 
 spring:
