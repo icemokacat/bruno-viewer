@@ -13,6 +13,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import moka.brunoviewer.global.config.spring.BrunoProperty;
 import moka.brunoviewer.global.config.spring.MarkdownViewerProperty;
+import moka.brunoviewer.global.reader.BrunoDocReader;
 import moka.brunoviewer.global.reader.MarkdownFileReader;
 
 /**
@@ -56,6 +57,9 @@ public class SpringBeanConfiguration implements ApplicationContextAware, Initial
 		log.info("SpringBeanConfiguration destroy check");
 		MarkdownFileReader markdownFileReader = applicationContext.getBean(MarkdownFileReader.class);
 		markdownFileReader.shutdown();
+
+		BrunoDocReader brunoDocReader = applicationContext.getBean(BrunoDocReader.class);
+		brunoDocReader.shutdown();
 	}
 
 
