@@ -1,5 +1,36 @@
 # 브루노 API Client Docs Viewer
 
+무료로 사용할 수 있는 bruno api client 에서 docs 의 마크다운을 볼 수 있는 프로그램입니다.
+
+아래는 브루노 공식 사이트입니다. 제공해주셔서 감사합니다.
+
+https://www.usebruno.com/
+
+구성와 코드는 최대한 간략하게 구성했으며, 이후에도 pull request 및 공개배포시
+복잡한 구성이나 추가기능 없이 배포되었으면 합니다. 
+- 이유1. 사용하시는분이 빠른 테스트 및 프로그램 작동 확인 
+- 이유2. 부가적인 기능 및 디자인 작업 필요시 기본 기능이 간결해야 확장시키기 용이하다고 생각해서입니다.
+
+문서는 아직 작성 중이여서 간략하게만 남겨놓습니다.
+
+### 간단실행 방법
+
+Springboot 실행후 (혹은 jar 빌드 후 실행)
+/page/bruno/** 와 같이 요청
+
+뒤의 `**`은 bruno 가 설치된(정확히는 Collection folder) 위치와 `.bru` 경로까지 입력해 주시면 됩니다.
+
+- sub folder 가 몇개라도 상관 없습니다.
+
+e.g. /page/bruno/{collection-folder-name}/.../{bru file name}
+
+### Reference
+
+- [마크다운 문서 parsing 라이브러리 공식사이트](https://commonmark.org/)
+- maven repository : https://mvnrepository.com/artifact/org.commonmark/commonmark
+- [Spring으로 markdown view 만들기](https://devocean.sk.com/blog/techBoardDetail.do?ID=163499)
+- [Github Markdown CSS](https://github.com/sindresorhus/github-markdown-css) by [sindresorhus](https://github.com/sindresorhus)
+
 ## Index
 
 ## 📂 Packages
