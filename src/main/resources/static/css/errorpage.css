@@ -31,6 +31,10 @@ body {
     box-sizing: inherit;
 }
 
+body {
+    min-height: 99vh !important;
+}
+
 .container {
     width: 100%;
 }

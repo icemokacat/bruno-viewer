@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bruno Viewer</title>
+
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/reset.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/errorpage.css}">
+</head>
+<body>
+<!--
+    this error page style is from https://codepen.io/selcukcura/pen/XeQpEv
+-->
+<div class="container">
+    <p>default error page : templates/error/error.html</p>
+    <h1 th:text="'Error ' + ${status}">Error</h1>
+    <!--<p th:text="${error}">Error Description</p>
+    <p th:text="'Message: ' + ${message}">Message: An unexpected error occurred.</p>-->
+    <p th:text="'Path: ' + ${path}">Path: </p>
+
+    <!-- Additional error details, if any -->
+    <div th:if="${status == 404}">
+        <p>Sorry, the page you are looking for does not exist.</p>
+    </div>
+    <div th:if="${status == 500}">
+        <p>Sorry, something went wrong on the server.</p>
+    </div>
+</div>
+
+</body>
+</html>
