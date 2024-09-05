@@ -67,9 +67,6 @@ bruno:
   # .bru 파일이 있는 Collection의 폴더 경로 혹은 Collection 이 모여 있는 루트 path 를 설정하세요
   root-path: C:\work\bruno-project\
 
-mdreader:
-  # markdown 파일을 읽을 때 사용할 thread pool size 를 설정하세요
-  poolsize: 10
 ```
 
 # Usage
