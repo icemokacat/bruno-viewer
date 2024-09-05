@@ -15,9 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import moka.brunoviewer.global.exception.Custom404Exception;
 import moka.brunoviewer.global.exception.CustomIllegalArgumentException;
 import moka.brunoviewer.global.exception.ImageNotFound;
-import moka.brunoviewer.global.model.ErrorMessage;
-import moka.brunoviewer.global.model.HttpErrorResponse;
-import moka.brunoviewer.global.model.RestErrorResponse;
+import moka.brunoviewer.global.model.http.ErrorMessage;
+import moka.brunoviewer.global.model.http.HttpErrorResponse;
+import moka.brunoviewer.global.model.http.RestErrorResponse;
 
 @Slf4j
 @Order(ORDER)

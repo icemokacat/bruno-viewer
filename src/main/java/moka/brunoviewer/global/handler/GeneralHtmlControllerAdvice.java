@@ -1,6 +1,5 @@
 package moka.brunoviewer.global.handler;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import lombok.extern.slf4j.Slf4j;
 import moka.brunoviewer.global.exception.Custom404Exception;
-import moka.brunoviewer.global.model.HttpErrorResponse;
+import moka.brunoviewer.global.model.http.HttpErrorResponse;
 
 @Slf4j
 @Order(GeneralRestControllerAdvice.ORDER + 1)
