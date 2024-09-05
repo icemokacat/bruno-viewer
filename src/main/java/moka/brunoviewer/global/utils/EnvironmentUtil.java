@@ -62,11 +62,4 @@ public class EnvironmentUtil {
 		return contextPath;
 	}
 
-	/**
-	 * FileUpload Global Dir
-	 * */
-	public String getFileUploadRootDir() {
-		return env.getProperty("file.upload.path");
-	}
-
 }

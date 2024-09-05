@@ -1,101 +1,87 @@
-# 브루노 API Client Docs Viewer
+# Bruno API Client Docs Viewer
 
-무료로 사용할 수 있는 bruno api client 에서 docs 의 마크다운을 볼 수 있는 프로그램입니다.
+<!--배지-->
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-아래는 브루노 공식 사이트입니다. 제공해주셔서 감사합니다.
+무료로 사용할 수 있는 [bruno api client](https://www.usebruno.com/) 에서 docs 의 마크다운을 볼 수 있는 프로그램입니다.
 
-https://www.usebruno.com/
+<!--프로젝트 버튼-->
+[![Report bug][report-bug-shield]][report-bug-url]
 
-구성와 코드는 최대한 간략하게 구성했으며, 이후에도 pull request 및 공개배포시
-복잡한 구성이나 추가기능 없이 배포되었으면 합니다. 
-- 이유1. 사용하시는분이 빠른 테스트 및 프로그램 작동 확인 
-- 이유2. 부가적인 기능 및 디자인 작업 필요시 기본 기능이 간결해야 확장시키기 용이하다고 생각해서입니다.
+# Table of Contents
 
-문서는 아직 작성 중이여서 간략하게만 남겨놓습니다.
+- [About the Project](#about-the-project)
+  - [Features](#features)
+  - [Technologies](#technologies)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+- [Usage](#usage)
+- [Acknowledgement](#acknowledgement)
+- [License](#license)
 
-### 간단실행 방법
+# About the Project
 
-Springboot 실행후 (혹은 jar 빌드 후 실행)
-/page/bruno/** 와 같이 요청
+- 브루노 Api Client 에서 제공한는 Docs 만 별도로 관리하기 위해 만들어진 프로젝트입니다.
+- 문서만 별도로 관리하면서, Front-end 에서 custom 하게 디자인하여 보기좋게 공유하기 위해 만들었습니다.
+- .bru 파일을 읽어서 docs {} 부분의 markdown 을 읽어서 보여줍니다.
 
-뒤의 `**`은 bruno 가 설치된(정확히는 Collection folder) 위치와 `.bru` 경로까지 입력해 주시면 됩니다.
+## Features
 
-- sub folder 가 몇개라도 상관 없습니다.
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white)
 
-e.g. /page/bruno/{collection-folder-name}/.../{bru file name}
+## Technologies
 
-### Reference
+- [Gradle](https://gradle.org/) 8.8
+- [SpringBoot](https://spring.io/projects/spring-boot) 3.3.3
+- [Thymeleaf](https://www.thymeleaf.org/) 3.3.3
+- [commonmark](https://commonmark.org/) 0.22.0
 
-- [마크다운 문서 parsing 라이브러리 공식사이트](https://commonmark.org/)
-- maven repository : https://mvnrepository.com/artifact/org.commonmark/commonmark
+# Getting Started
+
+## Prerequisites
+
+- Java 17.0.10+11-LTS-240
+
+## Installation
+Repository 클론
+```bash
+git clone https://github.com/icemokacat/bruno-viewer.git
+```
+
+
+## Configuration
+
+- `application-dev.yml 을 참고하여 application-local.yml 을 만들어서 사용하세요.`
+
+```yml
+server:
+  port: 7001
+
+bruno:
+  # .bru 파일이 있는 Collection의 폴더 경로 혹은 Collection 이 모여 있는 루트 path 를 설정하세요
+  root-path: C:\work\bruno-project\
+
+mdreader:
+  # markdown 파일을 읽을 때 사용할 thread pool size 를 설정하세요
+  poolsize: 10
+```
+
+# Usage
+
+# Acknowledgement
+
+- [Markdown to html (commonmark)](https://mvnrepository.com/artifact/org.commonmark/commonmark)
 - [Spring으로 markdown view 만들기](https://devocean.sk.com/blog/techBoardDetail.do?ID=163499)
 - [Github Markdown CSS](https://github.com/sindresorhus/github-markdown-css) by [sindresorhus](https://github.com/sindresorhus)
 
-## Index
+# License
+ Apache License 2.0
 
-## 📂 Packages
+ 라이센스에 대한 정보는 [`LICENSE`](/LICENSE)에 있습니다.
 
-```
-.gitignore
-Jenkinsfile
-README.md
-build.gradle.kts
-├─ 📂gradle
-│  └─ 📂wrapper
-│     ├─ gradle-wrapper.jar
-│     └─ gradle-wrapper.properties
-gradlew
-gradlew.bat
-├─ settings.gradle.kts
-└─ 📂src
-   ├─ 📂main
-   │  ├─ 📂java
-   │  │  └─ 📂moka
-   │  │     └─ 📂brunoviewer
-   │  │        ├─ BrunoviewerApplication.java
-   │  │        ├─ 📂controller
-   │  │        │  ├─ MarkdownController.java
-   │  │        │  └─ WebErrorController.java
-   │  │        └─ 📂global
-   │  │           ├─ 📂config
-   │  │           │  ├─ SpringBeanConfiguration.java
-   │  │           │  ├─ WebConfiguration.java
-   │  │           │  └─ 📂spring
-   │  │           │     ├─ BrunoProperty.java
-   │  │           │     └─ MarkdownViewerProperty.java
-   │  │           ├─ 📂handler
-   │  │           │  └─ GeneralExceptionHandler.java
-   │  │           ├─ 📂reader
-   │  │           │  ├─ BrunoDocReader.java
-   │  │           │  ├─ BufferedReaderPool.java
-   │  │           │  └─ MarkdownFileReader.java
-   │  │           └─ 📂utils
-   │  │              └─ EnvironmentUtil.java
-   │  └─ 📂resources
-   │     ├─ 📂META-INF
-   │     │  └─ spring-configuration-metadata.json
-   │     ├─ application-dev.yml
-   │     ├─ application-global.yml
-   │     ├─ application.yml
-   │     ├─ 📂static
-   │     │  ├─ 📂css
-   │     │  │  ├─ errorpage.css
-   │     │  │  └─ reset.css
-   │     │  ├─ favicon.ico
-   │     │  ├─ 📂js
-   │     │  │  ├─ errorpage.js
-   │     │  │  └─ view.js
-   │     │  └─ 📂sample
-   │     │     └─ test.md
-   │     └─ 📂templates
-   │        └─ 📂thymeleaf
-   │           ├─ error-page
-   │           │  └─ errorpage.html
-   │           └─ markdown-viewer.html
-   └─ 📂test
-      └─ 📂java
-         └─ 📂moka
-            └─ 📂brunoviewer
-               └─ BrunoviewerApplicationTests.java
-```
-©generated by [Project Tree Generator](https://woochanleee.github.io/project-tree-generator)
+<!-- 링크 -->
+
+[report-bug-shield]: https://img.shields.io/badge/-%F0%9F%90%9E%20report%20bug-F5A9A9?style=for-the-badge
+[report-bug-url]: https://github.com/icemokacat/bruno-viewer/issues
