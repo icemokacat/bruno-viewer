@@ -18,6 +18,8 @@
   - [Installation](#installation)
   - [Configuration](#configuration)
 - [Usage](#usage)
+    - [1. Page View 방식 (thymeleaf view lendering)](#1-page-view-방식-thymeleaf-view-lendering)
+    - [2. HTTP API 호출 방식](#2-http-api-호출-방식)
 - [Acknowledgement](#acknowledgement)
 - [License](#license)
 
@@ -54,6 +56,7 @@ git clone https://github.com/icemokacat/bruno-viewer.git
 ## Configuration
 
 - `application-dev.yml 을 참고하여 application-local.yml 을 만들어서 사용하세요.`
+- Active profiles local 로 설정하여 실행하세요.
 
 ```yml
 server:
@@ -69,6 +72,46 @@ mdreader:
 ```
 
 # Usage
+
+Springboot 실행 or jar build 후 localhost:{port} 실행
+
+bru 파일의 경로가 아래와 같을때
+{root-path}{상대경로}
+
+### 1. Page View 방식 (thymeleaf view lendering)
+
+http://localhost:{port}/page/bruno/{상대경로} 를 호출하여 .bru 내 markdown 을 볼 수 있습니다.
+
+### 2. HTTP API 호출 방식
+
+http://localhost:{port}/api/bruno/{상대경로} 를 호출하면 .bru 내 markdown 을 
+
+html code로 parsing 한 문자열 데이터를 반환 합니다.
+
+### 3. bru collection 내 디렉토리 및 bru 파일 리스트 확인
+
+http://localhost:{port}/api/bruno-path
+- Method : GET
+- Parameter : dir (폴더명)
+- Response OK Data
+  ```json
+  {
+    "httpStatus": "OK",
+    "message": "OK",
+    "data": [
+      {
+        "isBru": false,
+        "directoryPath": "myapp/environments",
+        "directoryName": "environments"
+      },
+      {
+        "isBru": true,
+        "directoryPath": "myapp/login.bru",
+        "directoryName": "login.bru"
+      }
+    ]
+  }
+  ```
 
 # Acknowledgement
 
