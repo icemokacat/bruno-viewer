@@ -77,7 +77,7 @@ public class BrunoDocReader {
 
 	@Scheduled(fixedRate = 10000)
 	public void clearCache() {
-		log.info("Clearing BrunoDocReader cache");
+		//log.info("Clearing BrunoDocReader cache");
 		fileCache.clear();
 	}
 
