@@ -1,4 +1,4 @@
-package moka.brunoviewer.global.model;
+package moka.brunoviewer.global.model.http;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

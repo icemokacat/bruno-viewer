@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import moka.brunoviewer.global.exception.Custom404Exception;
+
 @Component
 public class BrunoDocReader {
 
@@ -35,6 +37,11 @@ public class BrunoDocReader {
 
 	private String loadFileContent(String relativePath) {
 		Path filePath = Paths.get(SERVER_FOLDER_PATH + relativePath);
+
+		// 파일이 존재하는지 체크 후 존재하지 않으면 Custom404Exception 발생
+		if (!Files.exists(filePath)) {
+			throw new Custom404Exception("docs file not found: " + filePath);
+		}
 
 		//StringBuilder contentBuilder = new StringBuilder();
 

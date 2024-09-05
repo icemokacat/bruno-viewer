@@ -1,4 +1,4 @@
-package moka.brunoviewer.model;
+package moka.brunoviewer.app.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Directory {
-	boolean isParent;
-	boolean isBru;
+	Boolean isBru;
+	private String directoryPath;
 	private String directoryName;
 }

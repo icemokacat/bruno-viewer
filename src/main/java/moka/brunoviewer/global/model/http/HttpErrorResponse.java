@@ -1,4 +1,4 @@
-package moka.brunoviewer.global.model;
+package moka.brunoviewer.global.model.http;
 
 import java.util.List;
 import java.util.Map;

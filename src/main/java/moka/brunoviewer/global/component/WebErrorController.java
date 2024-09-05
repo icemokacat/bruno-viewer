@@ -1,4 +1,4 @@
-package moka.brunoviewer.controller;
+package moka.brunoviewer.global.component;
 
 import java.util.HashMap;
 import java.util.List;

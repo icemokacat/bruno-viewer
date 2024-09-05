@@ -1,4 +1,4 @@
-package moka.brunoviewer.global.model;
+package moka.brunoviewer.global.model.http;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
