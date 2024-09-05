@@ -39,6 +39,9 @@ dependencies {
      * */
     implementation("org.commonmark:commonmark:0.22.0")
 
+    // commonmark-ext-gfm-tables
+    implementation("org.commonmark:commonmark-ext-gfm-tables:0.22.0")
+
     /**
      * annotationProcessor
      * */

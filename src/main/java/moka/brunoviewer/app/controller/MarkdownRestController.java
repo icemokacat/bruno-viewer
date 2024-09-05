@@ -1,7 +1,10 @@
 package moka.brunoviewer.app.controller;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
+import org.commonmark.Extension;
+import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -36,9 +39,16 @@ public class MarkdownRestController {
 
 		String brunoValueFormLocal = brunoDocReader.getMarkdownValue(urlDecodedPath);
 
-		Parser markdownParser = Parser.builder().build();
+		List<Extension> extensions = List.of(TablesExtension.create());
+
+		Parser markdownParser = Parser.builder()
+			.extensions(extensions)
+			.build();
+
 		Node markdownNode = markdownParser.parse(brunoValueFormLocal);
-		HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
+		HtmlRenderer htmlRenderer = HtmlRenderer.builder()
+			.extensions(extensions)
+			.build();
 
 		final String htmlContents = htmlRenderer.render(markdownNode);
 
