@@ -1,0 +1,28 @@
+server:
+  servlet:
+    context-path: /
+  error:
+    # white label error page 설정 (default: true)
+    whitelabel:
+      enabled: true
+    # 오류 응답에 stacktrace 내용을 포함할 지 여부 (default: always)
+    include-stacktrace: always
+    # default : /error
+    path: /error
+  tomcat:
+    # https 에서 http로 redirect 되게 하지 않게 설정
+    use-relative-redirects: true
+
+spring:
+  application:
+    name: brunoviewer
+  # thymeleaf 설정
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    view-names: thymeleaf/*
+
+# logging
+logging:
+  level:
+    moka.brunoviewer: info

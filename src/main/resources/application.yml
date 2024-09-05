@@ -1,0 +1,14 @@
+# profiles guide
+# https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-Config-Data-Migration-Guide#profile-groups
+spring:
+  profiles:
+    group:
+      local   :
+        - global
+        - local
+      dev     :
+        - global
+        - dev
+      prd    :
+        - global
+        - prd
