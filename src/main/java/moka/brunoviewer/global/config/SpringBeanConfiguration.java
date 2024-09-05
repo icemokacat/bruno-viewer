@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import moka.brunoviewer.global.config.spring.BrunoProperty;
-import moka.brunoviewer.global.config.spring.MarkdownViewerProperty;
-import moka.brunoviewer.global.reader.BrunoDocReader;
-import moka.brunoviewer.global.reader.MarkdownFileReader;
 
 /**
  * Spring bean 추가 등록을 위한 class
@@ -31,12 +28,6 @@ public class SpringBeanConfiguration implements ApplicationContextAware, Initial
 		return new BrunoProperty();
 	}
 
-	@Bean
-	@ConfigurationProperties("mdreader")
-	public MarkdownViewerProperty markdownViewerProperty() {
-		return new MarkdownViewerProperty();
-	}
-
 	@Override
 	public void setApplicationContext(@NonNull  ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
@@ -44,22 +35,12 @@ public class SpringBeanConfiguration implements ApplicationContextAware, Initial
 
 	@Override
 	public void afterPropertiesSet()  {
-		// 빈들을 로그로 출력 - 문제확인시 주석 해제
-		/*String[] beanNames = applicationContext.getBeanDefinitionNames();
-		for (String beanName : beanNames) {
-			log.warn("Bean name: {}", beanName);
-		}*/
+		// bean 등록이 완료되면 실행
 	}
 
 	@Override
 	public void destroy() {
-		// MarkdownFileReader 객체를 종료시킨다.
-		log.info("SpringBeanConfiguration destroy check");
-		MarkdownFileReader markdownFileReader = applicationContext.getBean(MarkdownFileReader.class);
-		markdownFileReader.shutdown();
-
-		BrunoDocReader brunoDocReader = applicationContext.getBean(BrunoDocReader.class);
-		brunoDocReader.shutdown();
+		// bean 소멸시 실행
 	}
 
 

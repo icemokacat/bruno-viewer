@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServic
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = {"moka.brunoviewer"} , exclude = {UserDetailsServiceAutoConfiguration.class})
 @EnableCaching
+@EnableScheduling
 public class BrunoviewerApplication extends SpringBootServletInitializer {
 
 	@Override

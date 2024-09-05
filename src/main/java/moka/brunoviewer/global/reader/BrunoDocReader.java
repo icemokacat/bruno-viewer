@@ -7,28 +7,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import moka.brunoviewer.global.exception.Custom404Exception;
 
+@Slf4j
 @Component
 public class BrunoDocReader {
 
-	private static final Logger log = LoggerFactory.getLogger(MarkdownFileReader.class);
-	private final BufferedReaderPool bufferedReaderPool;
 	private final String SERVER_FOLDER_PATH;
 
 	private static final ConcurrentHashMap<String, String> fileCache = new ConcurrentHashMap<>();
 
 	// Constructor injection for dependency management and flexibility
 	public BrunoDocReader(
-		@Value("${mdreader.poolsize:10}") int poolSize,
-		@Value("${bruno.root-path}") String serverFolderPath) {
+		@Value("${bruno.root-path}") String serverFolderPath
+	)
+	{
 		this.SERVER_FOLDER_PATH = serverFolderPath;
-		this.bufferedReaderPool = new BufferedReaderPool(poolSize);
 	}
 
 	public String getMarkdownValue(String relativePath) {
@@ -43,13 +42,12 @@ public class BrunoDocReader {
 			throw new Custom404Exception("docs file not found: " + filePath);
 		}
 
-		//StringBuilder contentBuilder = new StringBuilder();
+		StringBuilder docsContent = new StringBuilder();
 
 		try (BufferedReader bufferedReader = Files.newBufferedReader(filePath)){
 
 			String line;
 			boolean inDocsSection = false;
-			StringBuilder docsContent = new StringBuilder();
 
 			while ((line = bufferedReader.readLine()) != null) {
 				// docs {} 안쪽 내용을 찾기 시작
@@ -69,20 +67,22 @@ public class BrunoDocReader {
 				}
 			}
 
-			// docs {} 안쪽 내용을 반환
-			return docsContent.toString();
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to read file: " + filePath, e);
 		}
 
+		// docs {} 안쪽 내용을 반환
+		return docsContent.toString();
 	}
 
-	public void shutdown() {
-		try {
-			bufferedReaderPool.closeAll();
-		} catch (IOException e) {
-			log.error("Failed to close BufferedReader pool", e);
-		}
+	@Scheduled(fixedRate = 10000)
+	public void clearCache() {
+		log.info("Clearing BrunoDocReader cache");
+		fileCache.clear();
+	}
+
+	public void clearCache(String relativePath) {
+		fileCache.remove(relativePath);
 	}
 
 }
