@@ -1,4 +1,4 @@
-package moka.brunoviewer.controller;
+package moka.brunoviewer.app.controller;
 
 import java.nio.charset.StandardCharsets;
 

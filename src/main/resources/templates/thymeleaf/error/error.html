@@ -11,20 +11,21 @@
     <link type="text/css" rel="stylesheet" th:href="@{/static/css/errorpage.css}">
 </head>
 <body>
-    <!--
-        this error page style is from https://codepen.io/selcukcura/pen/XeQpEv
-    -->
-    <div class="container">
-        <div class="copy-container center-xy">
-            <div class="title-container">
-                <p>
-                    404, page not found.
-                </p>
-                <span class="handle"></span>
-            </div>
+<!--
+    this error page style is from https://codepen.io/selcukcura/pen/XeQpEv
+-->
+<div class="container">
+    <div class="copy-container center-xy">
+        <div class="title-container">
+            <p>
+                <span th:text="${status}" />, <span th:text="${message}"/>
+            </p>
+            <span class="handle"></span>
         </div>
+        <p th:text="'Path: ' + ${path}">Path: </p>
     </div>
+</div>
 
-    <script th:src="@{/static/js/errorpage.js}"></script>
+<script th:src="@{/static/js/errorpage.js}"></script>
 </body>
 </html>
