@@ -3,6 +3,3 @@ server:
 
 bruno:
   root-path: C:\work\bruno-project\
-
-mdreader:
-  poolsize: 10
