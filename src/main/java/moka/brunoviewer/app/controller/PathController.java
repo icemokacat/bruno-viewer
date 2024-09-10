@@ -33,7 +33,8 @@ public class PathController {
 
 	@GetMapping("/api/bruno-path")
 	public ResponseEntity<?> path(
-		@RequestParam(value = "dir", required = false) String dir
+		@RequestParam(value = "dir", required = false) String dir,
+		@RequestParam(value = "all", required = false) String isReqAll
 	) {
 
 		if (dir == null) {
@@ -43,6 +44,8 @@ public class PathController {
 		String rootPath = brunoProperty.getRootPath();
 
 		String directoryPath = rootPath + dir;
+
+		boolean isReqAllFlag = "Y".equalsIgnoreCase(isReqAll);
 
 		// 파일 및 디렉토리 리스트 조회
 		// 1. 해당 디렉토리가 존재 하는지 확인
@@ -69,9 +72,29 @@ public class PathController {
 			directories.add(directory);
 		}
 
+		try {
+			directories = getDirectoryFileList(rootPath, path, isReqAllFlag);
+		} catch (IOException e) {
+			log.error("directory list error", e);
+			final  HttpErrorResponse response = HttpErrorResponse.builder()
+				.httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+				.errorCode("INTERNAL_SERVER_ERROR")
+				.message("Directory list error")
+				.build();
+			return new RestErrorResponse(response);
+		}
+
+		// 4. 디렉토리 리스트를 반환
+		return new RestResponse(directories);
+	}
+
+	private List<Directory> getDirectoryFileList (String rootPath, Path path, boolean recursive) throws IOException {
+		List<Directory> directories;
 		try (Stream<Path> stream = Files.list(path)) {
 			directories = stream.filter(
-				file -> file != null && ( Files.isDirectory(file) || file.getFileName().toString().endsWith(".bru") )
+				file -> file != null
+					&& ( Files.isDirectory(file) || file.getFileName().toString().endsWith(".bru") )
+					&& !file.getFileName().toString().equals(".git")
 			).map(file -> {
 
 				// 디렉토리인 경우 디렉토리 정보를 반환
@@ -85,6 +108,15 @@ public class PathController {
 
 					directory.setDirectoryPath(fileOrDirPath);
 					directory.setIsBru(false);
+
+					if(recursive){
+						// 재귀
+						try {
+							directory.setSubDirectoryList(getDirectoryFileList(rootPath, file, true));
+						} catch (IOException e) {
+							log.error("sub directory list error", e);
+						}
+					}
 
 					return directory;
 				}else if(file.getFileName().toString().endsWith(".bru")) {
@@ -102,16 +134,9 @@ public class PathController {
 			}).toList();
 		} catch (IOException e) {
 			log.error("directory list error", e);
-			final  HttpErrorResponse response = HttpErrorResponse.builder()
-				.httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-				.errorCode("INTERNAL_SERVER_ERROR")
-				.message("Directory list error")
-				.build();
-			return new RestErrorResponse(response);
+			throw new IOException("directory list error");
 		}
-
-		// 4. 디렉토리 리스트를 반환
-		return new RestResponse(directories);
+		return directories;
 	}
 
 }
